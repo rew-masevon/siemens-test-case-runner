@@ -10,14 +10,11 @@ string projectFile = Path.GetFullPath(@"..\..\..\..\..\..\MyTestProject\MyTestPr
 var tiaPortal = GetOrCreateTiaPortal(projectFile);
 var project = GetProject(tiaPortal, projectFile);
 
-var testSuiteService = project.GetService<TestSuiteService>();
-
-if (testSuiteService is null)
-{
-    throw new Exception("TestSuite Service not found.");
-}
-
+var testSuiteService = project.GetService<TestSuiteService>() ?? throw new Exception("Cannot find TestSuiteService.");
 var testCaseExecutor = testSuiteService.ApplicationTestGroup.GetService<TestCaseExecutor>();
+
+// Call to .Run below will always result into a failing unit test,
+// whereas running the same test in the IDE will succeed:
 var result = testCaseExecutor.Run(testSuiteService.ApplicationTestGroup.TestCases);
 
 PrintResultReport(result);
@@ -33,7 +30,6 @@ static TiaPortal GetOrCreateTiaPortal(string projectFile)
 static Project GetProject(TiaPortal portal, string projectFile)
     => portal.Projects.FirstOrDefault(t => t.Path.FullName.Equals(projectFile, StringComparison.OrdinalIgnoreCase))
        ?? portal.Projects.Open(new System.IO.FileInfo(projectFile));
-
 
 static void PrintResultReport(TestResults results)
 {
