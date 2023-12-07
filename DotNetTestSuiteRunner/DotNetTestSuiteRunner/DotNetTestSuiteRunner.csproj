@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+      
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net481</TargetFramework>
+    <ImplicitUsings>disabled</ImplicitUsings>
+      <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Siemens.Engineering">
+      <HintPath>Siemens.Engineering.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
